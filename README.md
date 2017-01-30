@@ -20,3 +20,9 @@ This Project was started on 30-01-2017.
 -Create Controls
 
 -Create Sounds
+
+
+# Done
+
+Created Player
+Created Ball
