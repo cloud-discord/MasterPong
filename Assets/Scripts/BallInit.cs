@@ -37,7 +37,6 @@ public class BallInit : MonoBehaviour {
 		}
 		if (collInfo.collider.name == ("Player1") || collInfo.collider.name == ("Player2")) 
 		{
-			Debug.Log ("Its working");
 			float velY = m_Rigidbody2D.velocity.y;
 			velY = velY / 2 + collInfo.rigidbody.velocity.y / 3;
 			m_Rigidbody2D.velocity.Set (m_Rigidbody2D.velocity.x, velY); 

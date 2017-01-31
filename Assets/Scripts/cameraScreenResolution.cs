@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraScreenResolution : MonoBehaviour {
+public class cameraScreenResolution : MonoBehaviour {
 	
 	public new Camera camera;
 
