@@ -26,4 +26,10 @@ This Project was started on 30-01-2017.
 
 Created Player
 
+Created Controls
+
 Created Ball
+
+Created Main Menu
+
+Created Controls
