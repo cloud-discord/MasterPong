@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 #pragma warning disable 0618, 0649
 public class GameLogic : MonoBehaviour {
@@ -13,6 +14,8 @@ public class GameLogic : MonoBehaviour {
 	[SerializeField]private CircleCollider2D ball; //collider for ball
 	static int scoreP1;
 	static int scoreP2;
+
+	[SerializeField]private GUISkin scoreSkin;
 
 
 	// Use this for initialization
@@ -51,10 +54,16 @@ public class GameLogic : MonoBehaviour {
 		}
 		Debug.Log ("ScoreP1 is :" + scoreP1);
 		Debug.Log ("ScoreP2 is :" + scoreP2);
+
+		if (scoreP1 > 9 || scoreP2 > 9) 
+		{
+				SceneManager.LoadScene (0);
+		}
 	}
 
 	void OnGUI ()
 	{
+		GUI.skin = scoreSkin;
 		//draw scores (THIS IS PLACEHOLDER)
 		GUI.Label (new Rect (Screen.width / 2 - 150f, 20f, 100f, 100f), scoreP1.ToString());
 		GUI.Label (new Rect (Screen.width / 2 + 150f, 20f, 100f, 100f), scoreP2.ToString());
