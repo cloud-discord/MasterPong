@@ -30,11 +30,17 @@ public class BallInit : MonoBehaviour {
 	private void playBall()
 	{
 		showStart = false;
-		int randomNumber = Random.Range (0, 2);
+
+		float randomNumber = Random.Range (-2, 2);
+		float dir = Random.Range (-1, 2);
+		Debug.Log ("rand: " + randomNumber);
+		Debug.Log ("dir: " + dir);
+		float multiplier = Random.value;
+
 		if (randomNumber <= 0.5)
-			m_Rigidbody2D.AddForce(new Vector2 (-40, -20));
+			m_Rigidbody2D.AddForce(new Vector2 (-40, 30f * multiplier*dir));
 		else
-			m_Rigidbody2D.AddForce(new Vector2 (40, 20));
+			m_Rigidbody2D.AddForce(new Vector2 (40, 30f * multiplier*dir));
 	}
 		
 

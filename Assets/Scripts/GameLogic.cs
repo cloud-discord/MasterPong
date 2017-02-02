@@ -29,7 +29,7 @@ public class GameLogic : MonoBehaviour {
 		rightWall.offset = new Vector2 (mainCam.ScreenToWorldPoint (new Vector3 (Screen.width, 0f, 0f)).x + 0.5f, 0f);
 
 		upWall.transform.localScale = new Vector3(mainCam.ScreenToWorldPoint(new Vector3(Screen.width,0f,0f)).x , 0.5f, 1f);
-		upWall.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (0f, 0f, 0f)).x-1f, mainCam.ScreenToWorldPoint (new Vector3 (0f, Screen.height, 0f)).y-0.5f, 0f);
+		upWall.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (0f, 0f, 0f)).x-1f, mainCam.ScreenToWorldPoint (new Vector3 (0f, Screen.height, 0f)).y- 0.3125f, 0f);
 
 		downWall.transform.localScale = new Vector3(mainCam.ScreenToWorldPoint(new Vector3(Screen.width,0f,0f)).x , 0.5f, 1f);
 		downWall.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (0f, 0f, 0f)).x-1f, mainCam.ScreenToWorldPoint (new Vector3 (0f, 0f, 0f)).y, 0f);
