@@ -65,7 +65,7 @@ public class GameLogic : MonoBehaviour {
 	{
 		GUI.skin = scoreSkin;
 		//draw scores (THIS IS PLACEHOLDER)
-		GUI.Label (new Rect (Screen.width / 2 - 150f, 20f, 100f, 100f), scoreP1.ToString());
-		GUI.Label (new Rect (Screen.width / 2 + 150f, 20f, 100f, 100f), scoreP2.ToString());
+		GUI.Label (new Rect (Screen.width / 2 - 150f, Screen.height/1.5f, 100f, 100f), scoreP1.ToString());
+		GUI.Label (new Rect (Screen.width / 2 + 150f, Screen.height/1.5f, 100f, 100f), scoreP2.ToString());
 	}
 }

@@ -27,7 +27,7 @@ public class PongPlayerControl : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		#if UNITY_EDITOR 
+		#if UNITY_EDITOR || UNITY_STANDALONE
 		//PC platform input
 		if (Input.GetKey(moveUp))
 			m_Rigidbody2D.velocity = new Vector2(0, m_MaxSpeed);
