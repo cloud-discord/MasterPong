@@ -6,6 +6,8 @@ public class GameLogic : MonoBehaviour {
 
 	[SerializeField]private BoxCollider2D leftWall; //collider for player1 keep
 	[SerializeField]private BoxCollider2D rightWall; //collider for player2 keep
+	[SerializeField]private GameObject upWall; //collider for player1 keep
+	[SerializeField]private GameObject downWall; //collider for player2 keep
 	[SerializeField]private Camera mainCam; //variable for storing the main camera
 	[SerializeField]private CircleCollider2D ball; //collider for ball
 
@@ -18,7 +20,12 @@ public class GameLogic : MonoBehaviour {
 		rightWall.size = new Vector2 (1f, mainCam.ScreenToWorldPoint (new Vector3 (0f, Screen.height * 2f, 0f)).y);
 		rightWall.offset = new Vector2 (mainCam.ScreenToWorldPoint (new Vector3 (Screen.width, 0f, 0f)).x + 0.5f, 0f);
 
+		downWall.transform.localScale = new Vector3(mainCam.ScreenToWorldPoint(new Vector3(Screen.width,0f,0f)).x , 1f, 1f);
+		downWall.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (0f, 0f, 0f)).x-1f, mainCam.ScreenToWorldPoint (new Vector3 (0f, Screen.height, 0f)).y, 0f);
 
+
+		downWall.transform.localScale = new Vector3(mainCam.ScreenToWorldPoint(new Vector3(Screen.width,0f,0f)).x , 1f, 1f);
+		downWall.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (0f, 0f, 0f)).x-1f, mainCam.ScreenToWorldPoint (new Vector3 (0f, 0f, 0f)).y, 0f);
 	}
 	
 	// Update is called once per frame
