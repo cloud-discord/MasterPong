@@ -12,14 +12,20 @@ public class GameLogic : MonoBehaviour {
 	[SerializeField]private GameObject downWall; //collider for player2 keep
 	[SerializeField]private Camera mainCam; //variable for storing the main camera
 	[SerializeField]private CircleCollider2D ball; //collider for ball
+	[SerializeField]private Canvas pauseMenu;
 	static int scoreP1;
 	static int scoreP2;
+	private bool paused = false;
 
 	[SerializeField]private GUISkin scoreSkin;
 
 
 	// Use this for initialization
 	void Start () {
+
+		//Initialize Pause Menu to not appear
+		paused = false;
+
 		//Initialize Scores
 		scoreP1 = 0;
 		scoreP2 = 0;
@@ -41,6 +47,23 @@ public class GameLogic : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//do nothing
+
+		if (Input.GetButtonDown("Pause")) 
+		{
+			paused = !paused;
+		}
+
+		if (paused) 
+		{
+			pauseMenu.gameObject.SetActive(true);
+			Time.timeScale = 0;
+		}
+
+		if (!paused) 
+		{
+			pauseMenu.gameObject.SetActive(false);
+			Time.timeScale = 1;
+		}
 	}
 
 	public static void scoring(string wallName)
@@ -67,5 +90,23 @@ public class GameLogic : MonoBehaviour {
 		//draw scores (THIS IS PLACEHOLDER)
 		GUI.Label (new Rect (Screen.width / 2 - 150f, Screen.height/1.5f, 100f, 100f), scoreP1.ToString());
 		GUI.Label (new Rect (Screen.width / 2 + 150f, Screen.height/1.5f, 100f, 100f), scoreP2.ToString());
+	}
+
+
+	//methods for pause menu
+
+	public void restartScript()
+	{
+		SceneManager.LoadScene (1); //loads current scene
+	}
+
+	public void resumeScript()
+	{
+		paused = false;
+	}
+
+	public void mainmenuScript()
+	{
+		SceneManager.LoadScene (0);//loads main menu
 	}
 }

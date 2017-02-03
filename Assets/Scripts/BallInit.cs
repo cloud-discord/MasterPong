@@ -68,6 +68,6 @@ public class BallInit : MonoBehaviour {
 	{
 		//draw Start Label (THIS IS PLACEHOLDER)
 		if (showStart)
-			GUI.Label(new Rect (Screen.width / 2 - 10f , Screen.height / 2 + 100f, 100f, 100f), "START");
+			GUI.Label(new Rect (Screen.width / 2 - 90f , Screen.height / 2 + 100f, 200f, 100f), "START") ;
 	}
 }
