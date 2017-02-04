@@ -7,46 +7,52 @@ public class music : MonoBehaviour {
 
 	private AudioSource AS;
 	private AudioSource[] AllAudioSources;
+	private static music instance;
 
-		void Awake()
-		{
-			AS = GetComponent<AudioSource> (); //Audio source of this button
-			AS.enabled = true;
-			AS.Play ();
+	void Awake(){
+		if (instance != null && instance != this){
+			//Destroy(this.gameObject);
+			//return;
 		}
-
-	
-
-	void Start () {
-
+		else{
+			instance = this;
+			AS = GetComponent<AudioSource> (); //Audio source of this button
+			AS.Play();
+			AS.enabled = true;
+			AS.loop = true;
+		}
+		DontDestroyOnLoad(this.gameObject);
+	}
+		
+	void Start (){
+		AS = GetComponent<AudioSource> (); //Audio source of this button
 		//AS.Stop();
 		AS.enabled = true;
 		AS.loop = true;
 		AllAudioSources = GameObject.FindObjectsOfType (typeof(AudioSource)) as AudioSource[]; //all audio sources
 	}
 
-	void StopAllAudio() {
-		foreach (AudioSource Audio in AllAudioSources) {
-			Audio.Stop();
+	void StopAllAudio(){
+		foreach (AudioSource Audio in AllAudioSources){
 			Audio.enabled = false;
-
+			Audio.Stop();
+			//AS.enabled = false;
 		}
-
 	}
-	void Clicked() {
-		if (AS.enabled == true) {
+
+	void Clicked(){
+		if (AS.enabled == true){
 			StopAllAudio ();
-		} else {
+		} 
+		else{
 			AS.enabled = true;
 			AS.Play ();
 		}
 	}
-
-
-	public void OnMouseDown() {
+		
+	public void OnMouseDown(){
 		Clicked ();
 	}
-
 }
 
 

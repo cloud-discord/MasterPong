@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayButton : MonoBehaviour {
+	private int couter;
 
 	public Canvas MainCanvas;
 	public Canvas OptionsCanvas;
