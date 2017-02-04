@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 #pragma warning disable 0618, 0649
 public class GameLogic : MonoBehaviour {
@@ -13,12 +14,11 @@ public class GameLogic : MonoBehaviour {
 	[SerializeField]private Camera mainCam; //variable for storing the main camera
 	[SerializeField]private CircleCollider2D ball; //collider for ball
 	[SerializeField]private Canvas pauseMenu;
+	[SerializeField]private Text scoreP1Text;
+	[SerializeField]private Text scoreP2Text;
 	static int scoreP1;
 	static int scoreP2;
 	private bool paused = false;
-
-	[SerializeField]private GUISkin scoreSkin;
-
 
 	// Use this for initialization
 	void Start () {
@@ -44,10 +44,14 @@ public class GameLogic : MonoBehaviour {
 		downWall.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (0f, 0f, 0f)).x-1f, mainCam.ScreenToWorldPoint (new Vector3 (0f, 0f, 0f)).y, 0f);
 	}
 	
-	// Update is called once per frame
+	//Update is called once per frame
 	void Update () {
-		//do nothing
 
+		//Update score text
+		scoreP1Text.text = scoreP1.ToString ();
+		scoreP2Text.text = scoreP2.ToString ();
+
+		//Update Pause Menu
 		if (Input.GetButtonDown("Pause")) 
 		{
 			paused = !paused;
@@ -83,15 +87,6 @@ public class GameLogic : MonoBehaviour {
 				SceneManager.LoadScene (0);
 		}
 	}
-
-	void OnGUI ()
-	{
-		GUI.skin = scoreSkin;
-		//draw scores (THIS IS PLACEHOLDER)
-		GUI.Label (new Rect (Screen.width / 2 - 150f, Screen.height/1.5f, 100f, 100f), scoreP1.ToString());
-		GUI.Label (new Rect (Screen.width / 2 + 150f, Screen.height/1.5f, 100f, 100f), scoreP2.ToString());
-	}
-
 
 	//methods for pause menu
 

@@ -1,28 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BallInit : MonoBehaviour {
 
 	bool showStart; //flag to control Start Label
-
+	private float countdown = 10f;
+	private float roundTime= 10f;
+	private float lastRoundTime = -1f;
 	private Rigidbody2D m_Rigidbody2D;
+	[SerializeField]private AudioClip playerBump;
+	[SerializeField]private AudioClip countdownSound1;
+	[SerializeField]private AudioClip countdownSound2;
+	[SerializeField]private Text countdownText;
 	// Use this for initialization
 	void Start()
 	{
-		showStart = true;
+		
+		//load sounds
+		playerBump.LoadAudioData ();
+
+		//get postion and velocity
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
-		Invoke ("ballReset", 2f); //Calls ball reset in 2 seconds
+		m_Rigidbody2D.velocity = new Vector2(0f, 0f);
+		transform.position = new Vector3(0f, 0f, 0f);
+
+		//Calls ball reset in 2 seconds
+		Invoke ("ballReset", 1f);
 	}
 
 	//Resets all ball Properties
 	private void ballReset()
 	{
 		Debug.Log ("Reset Ball!");
-		transform.position = new Vector3(0f, 0f, 0f);
+		countdown = 4f;
 		m_Rigidbody2D.velocity = new Vector2(0f, 0f);
-
-		Invoke ("playBall", 1f);
+		transform.position = new Vector3(0f, 0f, 0f);
+		Invoke ("playBall", 4f);
 
 	}
 
@@ -49,6 +64,8 @@ public class BallInit : MonoBehaviour {
 		//ball mechanics here, should make constants
 		if (collInfo.collider.name == ("Player1") || collInfo.collider.name == ("Player2")) 
 		{
+			AudioSource.PlayClipAtPoint (playerBump, transform.position);
+
 			float velY = m_Rigidbody2D.velocity.y;
 			float velX = m_Rigidbody2D.velocity.x;
 			velY = velY / 2 + collInfo.rigidbody.velocity.y / 2;
@@ -64,10 +81,35 @@ public class BallInit : MonoBehaviour {
 		}
 	}
 
-	private void OnGUI()
+	void Update()
 	{
-		//draw Start Label (THIS IS PLACEHOLDER)
-		if (showStart)
-			GUI.Label(new Rect (Screen.width / 2 - 90f , Screen.height / 2 + 100f, 200f, 100f), "START") ;
+		countdown -= Time.deltaTime;
+		roundTime = Mathf.Round (countdown);
+		if (roundTime < 4 && roundTime > 0) 
+		{
+			showStart = true;	
+		}
+		if (showStart) 
+		{
+			if (lastRoundTime != roundTime) 
+			{
+				countdownText.text = roundTime.ToString();
+				lastRoundTime = roundTime;
+
+				if (lastRoundTime > 0) 
+				{
+					AudioSource.PlayClipAtPoint (countdownSound1, transform.position);
+				}
+				else 
+				{
+					AudioSource.PlayClipAtPoint (countdownSound2, transform.position);
+				}
+			}
+
+		}
+		else
+		{
+			countdownText.text = "";
+		}
 	}
 }
