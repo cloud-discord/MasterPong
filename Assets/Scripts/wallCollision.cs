@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#pragma warning disable 0618, 0649
 public class wallCollision : MonoBehaviour {
 
 	[SerializeField]private AudioSource playerScore;
