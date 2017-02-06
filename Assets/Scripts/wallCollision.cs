@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class wallCollision : MonoBehaviour {
 
-	[SerializeField]private AudioClip playerScore;
+	[SerializeField]private AudioSource playerScore;
 
 	void OnCollisionEnter2D (Collision2D collInfo) {
 		if (collInfo.collider.name == "pongBall") 
 		{
 			GameLogic.scoring (transform.name);
-			AudioSource.PlayClipAtPoint (playerScore, transform.position);
+			playerScore.Play ();
 		}
 		collInfo.gameObject.SendMessage ("Start");
 	}

@@ -10,16 +10,14 @@ public class BallInit : MonoBehaviour {
 	private float roundTime= 10f;
 	private float lastRoundTime = -1f;
 	private Rigidbody2D m_Rigidbody2D;
-	[SerializeField]private AudioClip playerBump;
-	[SerializeField]private AudioClip countdownSound1;
-	[SerializeField]private AudioClip countdownSound2;
+	[SerializeField]private AudioSource playerBump;
+	[SerializeField]private AudioSource countdownSound1;
+	[SerializeField]private AudioSource countdownSound2;
 	[SerializeField]private Text countdownText;
 	// Use this for initialization
 	void Start()
 	{
 		
-		//load sounds
-		playerBump.LoadAudioData ();
 
 		//get postion and velocity
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -64,7 +62,9 @@ public class BallInit : MonoBehaviour {
 		//ball mechanics here, should make constants
 		if (collInfo.collider.name == ("Player1") || collInfo.collider.name == ("Player2")) 
 		{
-			AudioSource.PlayClipAtPoint (playerBump, transform.position);
+			float randomPitchMult = Random.Range (0.8f, 1.2f);
+			playerBump.pitch = 1 * randomPitchMult;
+			playerBump.Play ();
 
 			float velY = m_Rigidbody2D.velocity.y;
 			float velX = m_Rigidbody2D.velocity.x;
@@ -98,11 +98,11 @@ public class BallInit : MonoBehaviour {
 
 				if (lastRoundTime > 0) 
 				{
-					AudioSource.PlayClipAtPoint (countdownSound1, transform.position);
+					countdownSound1.Play ();
 				}
 				else 
 				{
-					AudioSource.PlayClipAtPoint (countdownSound2, transform.position);
+					countdownSound2.Play ();
 				}
 			}
 

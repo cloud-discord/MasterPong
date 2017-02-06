@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class upDownWallCollision : MonoBehaviour {
 
-	[SerializeField]private AudioClip wallBump;
+	[SerializeField]private AudioSource ballBump;
 
 	void OnCollisionEnter2D (Collision2D collInfo) {
 		if (collInfo.collider.name == "pongBall") 
 		{
-			AudioSource.PlayClipAtPoint (wallBump, transform.position);
+			ballBump.Play ();
 		}
 	}
 }
