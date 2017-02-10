@@ -29,6 +29,7 @@ public class PongPlayerControl : MonoBehaviour
 	{
 		#if UNITY_EDITOR || UNITY_STANDALONE
 		//PC platform input
+		Debug.Log("Mexeste!");	
 		if (Input.GetKey(moveUp))
 			m_Rigidbody2D.velocity = new Vector2(0, m_MaxSpeed);
 		else if (Input.GetKey(moveDown))
@@ -37,8 +38,11 @@ public class PongPlayerControl : MonoBehaviour
 			m_Rigidbody2D.velocity = new Vector2(0, 0);
 		#endif
 
-		#if UNITY_ANDROID && !UNITY_EDITOR
+		#if UNITY_ANDROID || UNITY_EDITOR
 			//android input here
+		Vector2 moveVec = new Vector2(0f, CrossPlatformInputManager.GetAxis("Vertical"));
+		m_Rigidbody2D.velocity = new Vector2(0, moveVec.y*m_MaxSpeed);
+		
 		#endif
 	}
 }

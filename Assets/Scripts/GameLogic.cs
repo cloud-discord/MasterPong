@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 #pragma warning disable 0618, 0649
 public class GameLogic : MonoBehaviour {
@@ -46,8 +47,8 @@ public class GameLogic : MonoBehaviour {
 		downWall.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (0f, 0f, 0f)).x-1f, mainCam.ScreenToWorldPoint (new Vector3 (0f, 0f, 0f)).y, 0f);
 
 		//Initialize Players
-		player1.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (70f, 0f, 0f)).x, mainCam.ScreenToWorldPoint (new Vector3 (0f, Screen.height/2, 0f)).y, 0f);
-		player2.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (Screen.width - 70f, 0f, 0f)).x, mainCam.ScreenToWorldPoint (new Vector3 (0f, Screen.height/2, 0f)).y, 0f);
+		player1.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (30f, 0f, 0f)).x, mainCam.ScreenToWorldPoint (new Vector3 (0f, Screen.height/2, 0f)).y, 0f);
+		player2.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (Screen.width - 30f, 0f, 0f)).x, mainCam.ScreenToWorldPoint (new Vector3 (0f, Screen.height/2, 0f)).y, 0f);
 	}
 	
 	//Update is called once per frame
@@ -58,7 +59,7 @@ public class GameLogic : MonoBehaviour {
 		scoreP2Text.text = scoreP2.ToString ();
 
 		//Update Pause Menu
-		if (Input.GetButtonDown("Pause")) 
+		if (Input.GetButtonDown("Pause") || CrossPlatformInputManager.GetButtonDown("PauseButton")) 
 		{
 			paused = !paused;
 		}
