@@ -11,9 +11,11 @@ public class music : MonoBehaviour {
 
 	void Awake(){
 		if (instance != null && instance != this){
+			//Debug.Log ("kek");
+			//AS.enabled = false;
+			}
 			//Destroy(this.gameObject);
 			//return;
-		}
 		else{
 			instance = this;
 			AS = GetComponent<AudioSource> (); //Audio source of this button
@@ -22,8 +24,9 @@ public class music : MonoBehaviour {
 			AS.loop = true;
 		}
 		DontDestroyOnLoad(this.gameObject);
+
 	}
-		
+
 	void Start (){
 		AS = GetComponent<AudioSource> (); //Audio source of this button
 		//AS.Stop();
@@ -36,15 +39,17 @@ public class music : MonoBehaviour {
 		foreach (AudioSource Audio in AllAudioSources){
 			Audio.enabled = false;
 			Audio.Stop();
-			//AS.enabled = false;
+			AS.enabled = false;
 		}
 	}
 
 	void Clicked(){
 		if (AS.enabled == true){
+			//Debug.Log ("leeeeeeeeeeeeeeeeeeeeel");
 			StopAllAudio ();
 		} 
 		else{
+			//Debug.Log ("bur");
 			AS.enabled = true;
 			AS.Play ();
 		}
