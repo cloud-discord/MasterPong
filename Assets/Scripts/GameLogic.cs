@@ -13,6 +13,8 @@ public class GameLogic : MonoBehaviour {
 	[SerializeField]private GameObject downWall; //collider for player2 keep
 	[SerializeField]private Camera mainCam; //variable for storing the main camera
 	[SerializeField]private CircleCollider2D ball; //collider for ball
+	[SerializeField]private GameObject player1; //collider for player1
+	[SerializeField]private GameObject player2; //collider for player1
 	[SerializeField]private Canvas pauseMenu;
 	[SerializeField]private Text scoreP1Text;
 	[SerializeField]private Text scoreP2Text;
@@ -38,10 +40,14 @@ public class GameLogic : MonoBehaviour {
 		rightWall.offset = new Vector2 (mainCam.ScreenToWorldPoint (new Vector3 (Screen.width, 0f, 0f)).x + 0.5f, 0f);
 
 		upWall.transform.localScale = new Vector3(mainCam.ScreenToWorldPoint(new Vector3(Screen.width,0f,0f)).x , 0.5f, 1f);
-		upWall.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (0f, 0f, 0f)).x-1f, mainCam.ScreenToWorldPoint (new Vector3 (0f, Screen.height, 0f)).y- 0.3125f, 0f);
+		upWall.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (0f, 0f, 0f)).x-1f, mainCam.ScreenToWorldPoint (new Vector3 (0f, Screen.height, 0f)).y, 0f);
 
 		downWall.transform.localScale = new Vector3(mainCam.ScreenToWorldPoint(new Vector3(Screen.width,0f,0f)).x , 0.5f, 1f);
 		downWall.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (0f, 0f, 0f)).x-1f, mainCam.ScreenToWorldPoint (new Vector3 (0f, 0f, 0f)).y, 0f);
+
+		//Initialize Players
+		player1.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (70f, 0f, 0f)).x, mainCam.ScreenToWorldPoint (new Vector3 (0f, Screen.height/2, 0f)).y, 0f);
+		player2.transform.position = new Vector3 (mainCam.ScreenToWorldPoint (new Vector3 (Screen.width - 70f, 0f, 0f)).x, mainCam.ScreenToWorldPoint (new Vector3 (0f, Screen.height/2, 0f)).y, 0f);
 	}
 	
 	//Update is called once per frame

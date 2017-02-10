@@ -1,35 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.SceneManagement;
 
 public class PlayButton : MonoBehaviour {
 	private int couter;
 
-	public Canvas MainCanvas;
-	public Canvas OptionsCanvas;
-	public Canvas PlayOptionsCanvas;
+	public GameObject MainCanvas;
+	public GameObject OptionsCanvas;
+	public GameObject PlayOptionsCanvas;
 
 	void Awake(){
-		OptionsCanvas.enabled = false;
-		PlayOptionsCanvas.enabled = false;
+		try{
+			MainCanvas.SetActive (true);
+			OptionsCanvas.SetActive(false);
+			PlayOptionsCanvas.SetActive(false);
+		}
+		catch(Exception ex) {
+			Debug.Log (ex.ToString ());
+		}
 	}
 
 	public void OptionsOn(){
-		OptionsCanvas.enabled = true;
-		MainCanvas.enabled = false;
-		PlayOptionsCanvas.enabled = false;
+		try{
+			MainCanvas.SetActive (false);
+			OptionsCanvas.SetActive(true);
+			PlayOptionsCanvas.SetActive(false);
+		}
+		catch(Exception ex) {
+			Debug.Log (ex.ToString ());
+		}
 	}
 
 	public void ReturnOn(){
-		OptionsCanvas.enabled = false;
-		MainCanvas.enabled = true;
-		PlayOptionsCanvas.enabled = false;
+		try{
+		OptionsCanvas.gameObject.SetActive(false);
+		MainCanvas.gameObject.SetActive(true);
+		PlayOptionsCanvas.SetActive(false);
+		}
+		catch(Exception ex){
+			Debug.Log (ex.ToString ());
+		}
 	}
 	public void PlayOptions(){
-		OptionsCanvas.enabled = false;
-		MainCanvas.enabled = false;
-		PlayOptionsCanvas.enabled = true;
+		try{
+		OptionsCanvas.SetActive(false);
+		MainCanvas.SetActive(false);
+		PlayOptionsCanvas.SetActive(true);
+		}
+		catch(Exception ex){
+			Debug.Log (ex.ToString ());
+		}
 	}
 		
 	public void LoadOn(){
