@@ -8,6 +8,7 @@ public class PongPlayerControl : MonoBehaviour
 	[SerializeField] private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the y axis.
 	[SerializeField] private KeyCode moveUp;
 	[SerializeField] private KeyCode moveDown;
+	private float inputPosY;
 
 	private Rigidbody2D m_Rigidbody2D;
 
@@ -29,7 +30,6 @@ public class PongPlayerControl : MonoBehaviour
 	{
 		#if UNITY_EDITOR || UNITY_STANDALONE
 		//PC platform input
-		Debug.Log("Mexeste!");	
 		if (Input.GetKey(moveUp))
 			m_Rigidbody2D.velocity = new Vector2(0, m_MaxSpeed);
 		else if (Input.GetKey(moveDown))
@@ -40,8 +40,26 @@ public class PongPlayerControl : MonoBehaviour
 
 		#if UNITY_ANDROID || UNITY_EDITOR
 			//android input here
-		Vector2 moveVec = new Vector2(0f, CrossPlatformInputManager.GetAxis("Vertical"));
-		m_Rigidbody2D.velocity = new Vector2(0, moveVec.y*m_MaxSpeed);
+		for (int i = 0; i < Input.touchCount; ++i){
+			if (Input.GetTouch(i).phase == TouchPhase.Began) {
+				
+				inputPosY = Input.GetTouch(i).position.y;
+
+				if (m_Rigidbody2D.position.y < inputPosY)
+				{
+					m_Rigidbody2D.velocity = new Vector2(0, m_MaxSpeed);
+				}
+				if (m_Rigidbody2D.position.y > inputPosY)
+				{
+					m_Rigidbody2D.velocity = new Vector2(0, -m_MaxSpeed);
+				}
+				else
+				{
+					m_Rigidbody2D.velocity = new Vector2(0, 0);
+				}	
+			}
+		}
+			
 		
 		#endif
 	}
