@@ -8,7 +8,8 @@ public class PongPlayerControl : MonoBehaviour
 	[SerializeField] private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the y axis.
 	[SerializeField] private KeyCode moveUp;
 	[SerializeField] private KeyCode moveDown;
-	private float inputPosY;
+	[SerializeField] private Camera CurrCam;
+	private Vector3 wantedPos;
 
 	private Rigidbody2D m_Rigidbody2D;
 
@@ -20,11 +21,7 @@ public class PongPlayerControl : MonoBehaviour
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 	}
-
-	private void Update()
-	{
-		//do nothing
-	}
+		
 
 	private void FixedUpdate()
 	{
@@ -40,26 +37,35 @@ public class PongPlayerControl : MonoBehaviour
 
 		#if UNITY_ANDROID || UNITY_EDITOR
 			//android input here
-		for (int i = 0; i < Input.touchCount; ++i){
-			if (Input.GetTouch(i).phase == TouchPhase.Began) {
-				
-				inputPosY = Input.GetTouch(i).position.y;
 
-				if (m_Rigidbody2D.position.y < inputPosY)
-				{
-					m_Rigidbody2D.velocity = new Vector2(0, m_MaxSpeed);
-				}
-				if (m_Rigidbody2D.position.y > inputPosY)
-				{
-					m_Rigidbody2D.velocity = new Vector2(0, -m_MaxSpeed);
-				}
-				else
-				{
-					m_Rigidbody2D.velocity = new Vector2(0, 0);
-				}	
+		/*
+		if (Input.GetMouseButton(0))
+		{
+			wantedPos = CurrCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+			Debug.Log("Mouse: " + wantedPos.y);
+			if(m_Rigidbody2D.position.y < wantedPos.y + 0.2f && m_Rigidbody2D.position.y > wantedPos.y - 0.2f)
+				m_Rigidbody2D.velocity = new Vector2(0, 0);
+			else if(m_Rigidbody2D.position.y < wantedPos.y)
+				m_Rigidbody2D.velocity = new Vector2(0, m_MaxSpeed);
+			else if(m_Rigidbody2D.position.y > wantedPos.y)
+				m_Rigidbody2D.velocity = new Vector2(0, -1*m_MaxSpeed);
+		}*/
+		if (Input.touchCount > 0)
+		{
+			Touch touch = Input.GetTouch(0);
+
+			if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary)
+			{
+				wantedPos = CurrCam.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 0));
 			}
+
+			if(m_Rigidbody2D.position.y < wantedPos.y + 0.1f && m_Rigidbody2D.position.y > wantedPos.y - 0.1f)
+				m_Rigidbody2D.velocity = new Vector2(0, 0);
+			else if(m_Rigidbody2D.position.y < wantedPos.y)
+				m_Rigidbody2D.velocity = new Vector2(0, m_MaxSpeed);
+			else if(m_Rigidbody2D.position.y > wantedPos.y)
+				m_Rigidbody2D.velocity = new Vector2(0, -1*m_MaxSpeed);
 		}
-			
 		
 		#endif
 	}
