@@ -10,6 +10,8 @@ public class BallInit : MonoBehaviour {
 	private float countdown = 10f;
 	private float roundTime= 10f;
 	private float lastRoundTime = -1f;
+	private bool contactDelta; // true if delta is positive
+	private ContactPoint2D contactPoint;
 	private Rigidbody2D m_Rigidbody2D;
 	[SerializeField]private AudioSource playerBump;
 	[SerializeField]private AudioSource countdownSound1;
@@ -63,12 +65,43 @@ public class BallInit : MonoBehaviour {
 		//ball mechanics here, should make constants
 		if (collInfo.collider.name == ("Player1") || collInfo.collider.name == ("Player2")) 
 		{
+			//randomize pitch to avoid the same exact sound
 			float randomPitchMult = Random.Range (0.8f, 1.2f);
 			playerBump.pitch = 1 * randomPitchMult;
 			playerBump.Play ();
 
+			//ball behaviour
 			float velY = m_Rigidbody2D.velocity.y;
 			float velX = m_Rigidbody2D.velocity.x;
+			contactPoint = collInfo.contacts [0];
+			contactDelta = collInfo.rigidbody.position.y < contactPoint.point.y;
+
+			if (m_Rigidbody2D.velocity.x < 20f) 
+			{
+				if (velX > 0)
+					velX = 10f;
+				else
+					velX = -10f;
+			}
+
+			if (Mathf.Abs (collInfo.rigidbody.position.y - contactPoint.point.y) < collInfo.collider.bounds.size.y / 15f) {
+				m_Rigidbody2D.velocity = new Vector2 (velX, 0f);
+			} 
+			else 
+			{
+				if (contactDelta) {
+					m_Rigidbody2D.velocity = new Vector2 (velX, 7f);
+				} 
+				else
+				{
+					m_Rigidbody2D.velocity = new Vector2 (velX, -7f);
+				}
+			}
+
+				
+
+			/*
+
 			velY = velY / 2 + collInfo.rigidbody.velocity.y / 2;
 			if (m_Rigidbody2D.velocity.x < 30f) 
 			{
@@ -78,6 +111,8 @@ public class BallInit : MonoBehaviour {
 					velX = -15f;
 			}
 				m_Rigidbody2D.velocity = new Vector2(velX, velY);
+				
+			*/
 
 		}
 	}

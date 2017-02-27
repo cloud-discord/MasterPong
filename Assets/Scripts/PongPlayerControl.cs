@@ -10,7 +10,6 @@ public class PongPlayerControl : MonoBehaviour
 	[SerializeField] private KeyCode moveDown;
 	[SerializeField] private Camera CurrCam;
 	private Vector3 wantedPos;
-
 	private Rigidbody2D m_Rigidbody2D;
 
 	private void Start()
@@ -54,18 +53,22 @@ public class PongPlayerControl : MonoBehaviour
 		{
 			Touch touch = Input.GetTouch(0);
 
-			if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary)
-			{
-				wantedPos = CurrCam.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 0));
-			}
 
-			if(m_Rigidbody2D.position.y < wantedPos.y + 0.1f && m_Rigidbody2D.position.y > wantedPos.y - 0.1f)
+			wantedPos = CurrCam.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 0));
+
+			if(m_Rigidbody2D.position.y < wantedPos.y + 0.2f && m_Rigidbody2D.position.y > wantedPos.y - 0.2f)
 				m_Rigidbody2D.velocity = new Vector2(0, 0);
 			else if(m_Rigidbody2D.position.y < wantedPos.y)
 				m_Rigidbody2D.velocity = new Vector2(0, m_MaxSpeed);
 			else if(m_Rigidbody2D.position.y > wantedPos.y)
 				m_Rigidbody2D.velocity = new Vector2(0, -1*m_MaxSpeed);
+			
 		}
+		else
+		{
+			m_Rigidbody2D.velocity = new Vector2(0, 0);	
+		}
+
 		
 		#endif
 	}
