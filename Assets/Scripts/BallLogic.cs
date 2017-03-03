@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #pragma warning disable 0618, 0649
-public class BallInit : MonoBehaviour {
+public class BallLogic : MonoBehaviour {
 
 	bool showStart; //flag to control Start Label
 	private float countdown = 10f;
 	private float roundTime= 10f;
 	private float lastRoundTime = -1f;
 	private bool contactDelta; // true if delta is positive
+	private float contactDeltaNum;
 	private ContactPoint2D contactPoint;
 	private Rigidbody2D m_Rigidbody2D;
+	private bool velocityisZero;
 	[SerializeField]private AudioSource playerBump;
 	[SerializeField]private AudioSource countdownSound1;
 	[SerializeField]private AudioSource countdownSound2;
@@ -73,8 +75,12 @@ public class BallInit : MonoBehaviour {
 			//ball behaviour
 			float velY = m_Rigidbody2D.velocity.y;
 			float velX = m_Rigidbody2D.velocity.x;
+
+			//check if velocity in Y axis is close to zero, because floats right!
+			velocityisZero = Mathf.Abs((collInfo.gameObject.GetComponent<Rigidbody2D>().velocity.y - 0)) < 0.0001f;
 			contactPoint = collInfo.contacts [0];
 			contactDelta = collInfo.rigidbody.position.y < contactPoint.point.y;
+			contactDeltaNum = Mathf.Abs(collInfo.rigidbody.position.y - contactPoint.point.y);
 
 			if (m_Rigidbody2D.velocity.x < 20f) 
 			{
@@ -84,19 +90,30 @@ public class BallInit : MonoBehaviour {
 					velX = -10f;
 			}
 
-			if (Mathf.Abs (collInfo.rigidbody.position.y - contactPoint.point.y) < collInfo.collider.bounds.size.y / 15f) {
-				m_Rigidbody2D.velocity = new Vector2 (velX, 0f);
-			} 
-			else 
+
+			if (collInfo.collider.name == ("Player2")) {
+				m_Rigidbody2D.velocity = new Vector2 (velX * 1.4f, velY * 1.2f); //should make variables
+			}
+			else if (collInfo.collider.name == ("Player1")) 
 			{
-				if (contactDelta) {
-					m_Rigidbody2D.velocity = new Vector2 (velX, 7f);
-				} 
+				if (contactDeltaNum < collInfo.collider.bounds.size.y / 30f)
+				{
+						m_Rigidbody2D.velocity = new Vector2(velX, 0f);		
+				}
 				else
 				{
-					m_Rigidbody2D.velocity = new Vector2 (velX, -7f);
+					if (contactDelta) 
+					{
+						m_Rigidbody2D.velocity = new Vector2 (velX, velocityisZero ? 5f:(collInfo.rigidbody.velocity.y/4 + velY/2));
+					} 
+					else
+					{
+						m_Rigidbody2D.velocity = new Vector2 (velX, velocityisZero ? -5f:(collInfo.rigidbody.velocity.y/4 + velY/2));
+					}		
 				}
 			}
+
+
 
 				
 
@@ -110,8 +127,7 @@ public class BallInit : MonoBehaviour {
 				else
 					velX = -15f;
 			}
-				m_Rigidbody2D.velocity = new Vector2(velX, velY);
-				
+			m_Rigidbody2D.velocity = new Vector2(velX, velY);
 			*/
 
 		}

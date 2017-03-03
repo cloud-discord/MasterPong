@@ -89,7 +89,7 @@ public class GameLogic : MonoBehaviour {
 		Debug.Log ("ScoreP1 is :" + scoreP1);
 		Debug.Log ("ScoreP2 is :" + scoreP2);
 
-		if (scoreP1 > 9 || scoreP2 > 9) 
+		if (scoreP1 > 4 || scoreP2 > 4) 
 		{
 				SceneManager.LoadScene (0);
 		}

@@ -19,7 +19,7 @@ public class AILogic : MonoBehaviour {
 	void Update () {
 
 		if (m_Rigidbody2D.position.y < ball.transform.position.y + 0.2f && m_Rigidbody2D.position.y > ball.transform.position.y - 0.2f)
-			m_Rigidbody2D.velocity = new Vector2 (0, 0);	
+			m_Rigidbody2D.velocity = Vector2.zero;	
 		else if (m_Rigidbody2D.position.y < ball.transform.position.y)
 			m_Rigidbody2D.velocity = new Vector2(0, m_MaxSpeed);
 		else if (m_Rigidbody2D.position.y > ball.transform.position.y)
