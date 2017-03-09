@@ -110,7 +110,7 @@ public class GameLogic : MonoBehaviour {
 		{
 			victoryText.text = "You Lose";
 		}
-		ball.transform.position = new Vector3 (Screen.width * 2, Screen.height * 2);
+		ball.transform.position = new Vector3 (Screen.width * 2, 0);
 
 		Invoke ("mainmenuScript", 3f);
 	}
