@@ -21,7 +21,6 @@ This Project was started on 30-01-2017.
 
 -Create Sounds
 
-
 # Done
 
 Created Player
@@ -33,3 +32,20 @@ Created Ball
 Created Main Menu
 
 Created Controls
+
+Created Sounds
+
+Created Arena
+
+Created Pause Menu
+
+Created Score
+
+# To do
+
+Loading Screen
+
+Analytics Integration
+
+Menu Support for Various Difficulty Settings
+
