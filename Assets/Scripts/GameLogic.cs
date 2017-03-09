@@ -19,8 +19,10 @@ public class GameLogic : MonoBehaviour {
 	[SerializeField]private Canvas pauseMenu;
 	[SerializeField]private Text scoreP1Text;
 	[SerializeField]private Text scoreP2Text;
-	static int scoreP1;
-	static int scoreP2;
+	[SerializeField]private Text victoryText;
+	public static int winScore;
+	public static int scoreP1 = 0;
+	public static int scoreP2 = 0;
 	private bool paused = false;
 
 	// Use this for initialization
@@ -32,6 +34,8 @@ public class GameLogic : MonoBehaviour {
 		//Initialize Scores
 		scoreP1 = 0;
 		scoreP2 = 0;
+		winScore = 5;
+		victoryText.text = "";
 
 		//Initiallize Walls
 		leftWall.size = new Vector2 (1f, mainCam.ScreenToWorldPoint (new Vector3 (0f, Screen.height * 2f, 0f)).y);
@@ -75,6 +79,11 @@ public class GameLogic : MonoBehaviour {
 			pauseMenu.gameObject.SetActive(false);
 			Time.timeScale = 1;
 		}
+
+		if (scoreP1 >= winScore || scoreP2 >= winScore) 
+		{
+			showVictory ();
+		}
 	}
 
 	public static void scoring(string wallName)
@@ -89,10 +98,21 @@ public class GameLogic : MonoBehaviour {
 		Debug.Log ("ScoreP1 is :" + scoreP1);
 		Debug.Log ("ScoreP2 is :" + scoreP2);
 
-		if (scoreP1 > 4 || scoreP2 > 4) 
+	}
+
+	private void showVictory()
+	{
+		if (scoreP1 >= winScore) 
 		{
-				SceneManager.LoadScene (0);
+			victoryText.text = "You win";
 		}
+		else if (scoreP2 >= winScore)
+		{
+			victoryText.text = "You Lose";
+		}
+		ball.transform.position = new Vector3 (Screen.width * 2, Screen.height * 2);
+
+		Invoke ("mainmenuScript", 3f);
 	}
 
 	//methods for pause menu

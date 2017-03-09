@@ -28,19 +28,24 @@ public class BallLogic : MonoBehaviour {
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		m_Rigidbody2D.velocity = new Vector2(0f, 0f);
 		transform.position = new Vector3(0f, 0f, 0f);
+		StartCoroutine(waitforaSecond());
+		ballReset ();
 
-		//Calls ball reset in 2 seconds
-		Invoke ("ballReset", 1f);
 	}
 
 	//Resets all ball Properties
 	private void ballReset()
 	{
-		Debug.Log ("Reset Ball!");
-		countdown = 4f;
-		m_Rigidbody2D.velocity = new Vector2(0f, 0f);
-		transform.position = new Vector3(0f, 0f, 0f);
-		Invoke ("playBall", 4f);
+		StartCoroutine(waitforaSecond());
+		if (GameLogic.scoreP1 < GameLogic.winScore && GameLogic.scoreP2 < GameLogic.winScore) 
+		{
+			Debug.Log ("Reset Ball!");
+			countdown = 4f;
+			m_Rigidbody2D.velocity = new Vector2(0f, 0f);
+			transform.position = new Vector3(0f, 0f, 0f);
+			Invoke ("playBall", 4f);
+		}
+
 
 	}
 
@@ -56,9 +61,9 @@ public class BallLogic : MonoBehaviour {
 		float multiplier = Random.value;
 
 		if (randomNumber <= 0.5)
-			m_Rigidbody2D.AddForce(new Vector2 (-40, 30f * multiplier*dir));
+			m_Rigidbody2D.AddForce(new Vector2 (-40, 30f * multiplier * dir));
 		else
-			m_Rigidbody2D.AddForce(new Vector2 (40, 30f * multiplier*dir));
+			m_Rigidbody2D.AddForce(new Vector2 (40, 30f * multiplier * dir));
 	}
 		
 
@@ -96,7 +101,7 @@ public class BallLogic : MonoBehaviour {
 			}
 			else if (collInfo.collider.name == ("Player1")) 
 			{
-				if (contactDeltaNum < collInfo.collider.bounds.size.y / 30f)
+				if (contactDeltaNum < collInfo.collider.bounds.size.y / 35f)
 				{
 						m_Rigidbody2D.velocity = new Vector2(velX, 0f);		
 				}
@@ -163,5 +168,12 @@ public class BallLogic : MonoBehaviour {
 		{
 			countdownText.text = "";
 		}
+	}
+		
+	IEnumerator waitforaSecond()
+	{
+		Debug.Log("Before Waiting 1 seconds");
+		yield return new WaitForSeconds(2);
+		Debug.Log("After Waiting 1 Seconds");
 	}
 }

@@ -13,7 +13,8 @@ public class wallCollision : MonoBehaviour {
 			GameLogic.scoring (transform.name);
 			playerScore.Play ();
 		}
-		collInfo.gameObject.SendMessage ("Start");
+		collInfo.rigidbody.velocity = Vector2.zero;
+		collInfo.gameObject.SendMessage ("ballReset");
 	}
 
 
