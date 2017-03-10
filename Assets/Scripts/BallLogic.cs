@@ -19,16 +19,17 @@ public class BallLogic : MonoBehaviour {
 	[SerializeField]private AudioSource countdownSound1;
 	[SerializeField]private AudioSource countdownSound2;
 	[SerializeField]private Text countdownText;
+	public static bool resetBall = false;
+
 	// Use this for initialization
 	void Start()
 	{
-		
-
+		resetBall = false;
 		//get postion and velocity
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		m_Rigidbody2D.velocity = new Vector2(0f, 0f);
 		transform.position = new Vector3(0f, 0f, 0f);
-		StartCoroutine(waitforaSecond());
+		StartCoroutine(waitfor3Seconds());
 		ballReset ();
 
 	}
@@ -140,6 +141,11 @@ public class BallLogic : MonoBehaviour {
 
 	void Update()
 	{
+		if (resetBall) 
+		{
+			resetBall = false;
+			ballReset();
+		}
 		countdown -= Time.deltaTime;
 		roundTime = Mathf.Round (countdown);
 		if (roundTime < 4 && roundTime > 0) 
@@ -174,6 +180,13 @@ public class BallLogic : MonoBehaviour {
 	{
 		Debug.Log("Before Waiting 1 seconds");
 		yield return new WaitForSeconds(2);
+		Debug.Log("After Waiting 1 Seconds");
+	}
+
+	IEnumerator waitfor3Seconds()
+	{
+		Debug.Log("Before Waiting 1 seconds");
+		yield return new WaitForSeconds(3);
 		Debug.Log("After Waiting 1 Seconds");
 	}
 }

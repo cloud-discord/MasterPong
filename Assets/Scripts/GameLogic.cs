@@ -119,7 +119,7 @@ public class GameLogic : MonoBehaviour {
 
 	public void restartScript()
 	{
-		SceneManager.LoadScene (1); //loads current scene
+		SceneManager.LoadScene (2); //loads current scene
 	}
 
 	public void resumeScript()
@@ -129,6 +129,7 @@ public class GameLogic : MonoBehaviour {
 
 	public void mainmenuScript()
 	{
+		Destroy (GameObject.Find("Music"));
 		SceneManager.LoadScene (0);//loads main menu
 	}
 }

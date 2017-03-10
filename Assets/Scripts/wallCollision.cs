@@ -14,7 +14,7 @@ public class wallCollision : MonoBehaviour {
 			playerScore.Play ();
 		}
 		collInfo.rigidbody.velocity = Vector2.zero;
-		collInfo.gameObject.SendMessage ("ballReset");
+		BallLogic.resetBall = true;
 	}
 
 
