@@ -54,8 +54,25 @@ public class PlayButton : MonoBehaviour {
 		}
 	}
 		
-	public void LoadOn(){
+
+	public void easyMode()
+	{
+		AILogic.difficulty = 0.75f;
+		BallLogic.difficulty = 0.75f; 
 		SceneManager.LoadScene (1);
 	}
 
+	public void mediumMode()
+	{
+		AILogic.difficulty = 0.9f;
+		BallLogic.difficulty = 0.85f; 
+		SceneManager.LoadScene (1);
+	}
+
+	public void hardMode()
+	{
+		AILogic.difficulty = 1f;
+		BallLogic.difficulty = 1f; 
+		SceneManager.LoadScene (1);
+	}
 }

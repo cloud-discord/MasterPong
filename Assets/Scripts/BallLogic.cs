@@ -20,6 +20,7 @@ public class BallLogic : MonoBehaviour {
 	[SerializeField]private AudioSource countdownSound2;
 	[SerializeField]private Text countdownText;
 	public static bool resetBall = false;
+	public static float difficulty;
 
 	// Use this for initialization
 	void Start()
@@ -96,13 +97,13 @@ public class BallLogic : MonoBehaviour {
 					velX = -10f;
 			}
 
-
+			//Bot behaviour
 			if (collInfo.collider.name == ("Player2")) {
-				m_Rigidbody2D.velocity = new Vector2 (velX * 1.4f, velY * 1.2f); //should make variables
+				m_Rigidbody2D.velocity = new Vector2 (velX * 1.4f*difficulty, velY * 1.2f *difficulty); //should make variables
 			}
 			else if (collInfo.collider.name == ("Player1")) 
 			{
-				if (contactDeltaNum < collInfo.collider.bounds.size.y / 35f)
+				if (contactDeltaNum < collInfo.collider.bounds.size.y / 50f)
 				{
 						m_Rigidbody2D.velocity = new Vector2(velX, 0f);		
 				}
