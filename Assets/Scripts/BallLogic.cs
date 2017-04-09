@@ -21,6 +21,7 @@ public class BallLogic : MonoBehaviour {
 	[SerializeField]private Text countdownText;
 	public static bool resetBall = false;
 	public static float difficulty;
+	public static int ballHitsP1 = 0; // used for analytics to count how many times the player hit the ball
 
 	// Use this for initialization
 	void Start()
@@ -103,6 +104,7 @@ public class BallLogic : MonoBehaviour {
 			}
 			else if (collInfo.collider.name == ("Player1")) 
 			{
+				ballHitsP1++;
 				if (contactDeltaNum < collInfo.collider.bounds.size.y / 50f)
 				{
 						m_Rigidbody2D.velocity = new Vector2(velX, 0f);		

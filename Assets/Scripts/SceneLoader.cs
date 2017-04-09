@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
+#pragma warning disable 0618, 0649
 public class SceneLoader : MonoBehaviour {
 
 	private bool loadScene = false;

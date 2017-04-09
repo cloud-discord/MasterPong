@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#pragma warning disable 0618, 0649
 public class AILogic : MonoBehaviour {
 
 	[SerializeField] private float m_MaxSpeed = 5f; 

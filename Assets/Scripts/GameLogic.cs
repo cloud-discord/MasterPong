@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
@@ -129,6 +130,13 @@ public class GameLogic : MonoBehaviour {
 
 	public void mainmenuScript()
 	{
+		Analytics.CustomEvent("Finished", new Dictionary<string, object>
+			{
+				{"difficulty", BallLogic.difficulty},
+				{"playerScore", scoreP1},
+				{"botScore", scoreP2},
+				{"ballHits", BallLogic.ballHitsP1}
+			});
 		Destroy (GameObject.Find("Music"));
 		SceneManager.LoadScene (0);//loads main menu
 	}
