@@ -8,7 +8,7 @@ public class AILogic : MonoBehaviour {
 	[SerializeField] private float m_MaxSpeed = 5f; 
 	[SerializeField] private GameObject ball;
 	private Rigidbody2D m_Rigidbody2D;
-	public static float difficulty;
+	public static float difficulty = 1f;
 
 	// Use this for initialization
 	void Start () {
@@ -26,7 +26,7 @@ public class AILogic : MonoBehaviour {
 			}
 			else
 			{
-				if (m_Rigidbody2D.position.y < ball.transform.position.y + 0.2f && m_Rigidbody2D.position.y > ball.transform.position.y - 0.2f)
+				if (m_Rigidbody2D.position.y < ball.transform.position.y + 0.05f && m_Rigidbody2D.position.y > ball.transform.position.y - 0.05f)
 					m_Rigidbody2D.velocity = Vector2.zero;	
 				else if (m_Rigidbody2D.position.y < ball.transform.position.y)
 					m_Rigidbody2D.velocity = new Vector2(0, m_MaxSpeed* difficulty);
@@ -38,7 +38,7 @@ public class AILogic : MonoBehaviour {
 		}
 		else
 		{
-			if (m_Rigidbody2D.position.y < ball.transform.position.y + 0.2f && m_Rigidbody2D.position.y > ball.transform.position.y - 0.2f)
+			if (m_Rigidbody2D.position.y < ball.transform.position.y + 0.05f && m_Rigidbody2D.position.y > ball.transform.position.y - 0.05f)
 				m_Rigidbody2D.velocity = Vector2.zero;	
 			else if (m_Rigidbody2D.position.y < ball.transform.position.y)
 				m_Rigidbody2D.velocity = new Vector2(0, m_MaxSpeed* difficulty);

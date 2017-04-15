@@ -20,7 +20,7 @@ public class BallLogic : MonoBehaviour {
 	[SerializeField]private AudioSource countdownSound2;
 	[SerializeField]private Text countdownText;
 	public static bool resetBall = false;
-	public static float difficulty;
+	public static float difficulty = 1;
 	public static int ballHitsP1 = 0; // used for analytics to count how many times the player hit the ball
 
 	// Use this for initialization
@@ -55,6 +55,7 @@ public class BallLogic : MonoBehaviour {
 	//Plays the Ball
 	private void playBall()
 	{
+		Debug.Log("FUNCTION X");
 		showStart = false;
 
 		float randomNumber = Random.Range (-2, 2);
@@ -64,9 +65,15 @@ public class BallLogic : MonoBehaviour {
 		float multiplier = Random.value;
 
 		if (randomNumber <= 0.5)
-			m_Rigidbody2D.AddForce(new Vector2 (-40, 30f * multiplier * dir));
+		{
+			Debug.Log ("LEFT");
+			m_Rigidbody2D.AddForce (new Vector2 (-40, 30f * multiplier * dir));
+		}
 		else
+		{
+			Debug.Log ("RIGHT");
 			m_Rigidbody2D.AddForce(new Vector2 (40, 30f * multiplier * dir));
+		}
 	}
 		
 
@@ -121,24 +128,6 @@ public class BallLogic : MonoBehaviour {
 					}		
 				}
 			}
-
-
-
-				
-
-			/*
-
-			velY = velY / 2 + collInfo.rigidbody.velocity.y / 2;
-			if (m_Rigidbody2D.velocity.x < 30f) 
-			{
-				if (velX > 0)
-					velX = 15f;
-				else
-					velX = -15f;
-			}
-			m_Rigidbody2D.velocity = new Vector2(velX, velY);
-			*/
-
 		}
 	}
 
